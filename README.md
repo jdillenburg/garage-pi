@@ -67,6 +67,7 @@ Note that some of the above items come in packs so you will have leftover DC rel
 reflects the per-item cost and not the price.
 #### Circuit Diagram
 ![Circuit Diagram](readme_assets/circuit/Sketch_bb.png)
+
 #### Raspberry Pi Zero 2W 
 Although any model of Raspberry Pi will work for this project, I recommend using a Zero 2W.  Why?
 I tried a Pi 4 and discovered that it overheated very easily in my garage during late July and August.
@@ -113,6 +114,9 @@ I did end up including a case fan in this design.  This is optional since I neve
 overheating, even when the case fan eventually failed.  I do live in a northern climate, however, so 
 make the case fan choice based on how hot your garage gets.
 
+#### Assembled Circuit
+![Assembled Circuit](readme_assets/Garage-Pi%20Assembled.jpg)
+
 ### Software
 The software consists of the Raspbian operating system, some shell scripts, python code, and python libraries.
 1. Write Raspbian OS to 32GB SD Card
@@ -127,8 +131,6 @@ You will need to use another computer to write the Raspbian OS image to the 32GB
 For the OS choose Raspberry Pi OS (32-bit).
 ![Raspbian OS 32-bit](readme_assets/RaspbianImagerOSChoice.png)
 
-#### Assembled Circuit
-![Assembled Circuit](readme_assets/Garage-Pi%20Assembled.jpg)
 # Acknowledgements
 This system was inspired by [ResinChem Tech's](https://www.youtube.com/@ResinChemTech) "[A New Parking Assistant using ESP8266 and WS2812b LEDs](https://www.youtube.com/watch?v=HqqlY4_3kQ8)" video on YouTube.  It is an excellent system and video so I encourage you to go watch it.  His system displays the LEDs the same
 way as Garage-Pi and has Home Assistant integration as well.  There is no Door or WiFi Sensors and no Door Open/Close Control, however.
