@@ -169,6 +169,10 @@ This creates a venv directory containing the custom python libraries we will nee
 source venv/bin/activate
 ```
 This switches the python and pip commands to use the venv python environment.
+```
+pip3 install -r requirements.txt
+```
+This installs the required libraries.
 
 # Acknowledgements
 This system was inspired by [ResinChem Tech's](https://www.youtube.com/@ResinChemTech) "[A New Parking Assistant using ESP8266 and WS2812b LEDs](https://www.youtube.com/watch?v=HqqlY4_3kQ8)" video on YouTube.  It is an excellent system and video so I encourage you to go watch it.  His system displays the LEDs the same
