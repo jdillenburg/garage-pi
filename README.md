@@ -137,6 +137,39 @@ You will need to use another computer to write the Raspbian OS image to the 32GB
 For the OS choose Raspberry Pi OS (32-bit).
 ![Raspbian OS 32-bit](readme_assets/RaspbianImagerOSChoice.png)
 
+After you write the O.S. image to your micro-SD and insert it into the Pi, you will need to connect
+a keyboard, mouse and monitor until you have remote SSH access working.
+
+#### Python
+Python can be installed with the following commands:
+```
+sudo apt update
+sudo apt upgrade
+sudo apt install python3 -y
+```
+Verify that you have at least Python 3.9:
+```
+python -V
+```
+
+#### Garage-Pi Code
+You can download the Garage-Pi code by using the 'git' command:
+```
+git clone https://github.com/jdillenburg/garage-pi.git
+```
+
+I like to create a virtual environment so the libraries needed do not interfere with other python programs you
+may want to install later:
+```
+cd garage-pi
+python -m venv venv
+```
+This creates a venv directory containing the custom python libraries we will need.
+```
+source venv/bin/activate
+```
+This switches the python and pip commands to use the venv python environment.
+
 # Acknowledgements
 This system was inspired by [ResinChem Tech's](https://www.youtube.com/@ResinChemTech) "[A New Parking Assistant using ESP8266 and WS2812b LEDs](https://www.youtube.com/watch?v=HqqlY4_3kQ8)" video on YouTube.  It is an excellent system and video so I encourage you to go watch it.  His system displays the LEDs the same
 way as Garage-Pi and has Home Assistant integration as well.  There is no Door or WiFi Sensors and no Door Open/Close Control, however.
