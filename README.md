@@ -22,7 +22,7 @@ This project turns a Raspberry-Pi (3, 4, 5, or Zero-2W) into a Garage helper wit
 * [Tasker](https://play.google.com/store/apps/details?id=net.dinglisch.android.taskerm) integration via [AutoRemote](https://play.google.com/store/search?q=autoremote&c=apps)
 to receive open/close status and to send open/close commands
 
-# Disclaimer
+## Disclaimer
 This project will be connected to your garage door opener and will be able to remotely open and close your
 door using Home Assistant, via your local WiFi network, and over the Internet.  This is an obvious security concern you should weigh before starting this project.  HTTPS
 and passwords are used to somewhat alleviate security concerns.  
@@ -199,6 +199,17 @@ The 5V Control Relay is used to "push" the garage door opener's button.  This tr
 The logic level converter is used to convert the Pi's 3.3V GPIO logic to 5V logic for the NeoPixels.
 
 ![Logic Level Converter](readme_assets/ControlRelay.jpg)
+
+#### TFmini-S
+
+The "time of flight" TFmini-S is the most expensive part of this project, so you'll want to be extra careful with the
+connections to it.  You probably do not want to accidentally wire up ground and +5V backwards.
+
+![TFmini-S](readme_assets/TFminiS.png)
+
+Note that I placed a generous helping of hot-melt glue on the TFmini-S connector.  It is soldered down to the 
+circuit board but I found that it can easily break off while making connections and installing it on
+the outside of the case.
 
 #### Case Fan
 I did end up including a case fan in this design.  This is optional since I never noticed the 2W 
