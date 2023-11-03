@@ -225,14 +225,27 @@ Each of these steps will be discussed below.
 
 #### Raspbian Operating System
 You will need to use another computer to write the Raspbian OS image to the 32GB MicroSD card.  See [Raspberry Pi OS Imager](https://www.raspberrypi.com/software/).
-For the OS choose Raspberry Pi OS (32-bit).
+For the O.S., choose Raspberry Pi OS (32-bit).
 ![Raspbian OS 32-bit](readme_assets/RaspbianImagerOSChoice.png)
 
 After you write the O.S. image to your micro-SD and insert it into the Pi, you will need to connect
 a keyboard, mouse and monitor until you have remote SSH access working.
 
+You might want to check out [SparkFun](https://learn.sparkfun.com/tutorials/getting-started-with-the-raspberry-pi-zero-2-w/all). They have a nice 
+tutorial on getting started with the Raspberry Pi Zero 2W.
+
+#### Enable WiFi on your Pi
+
+You will need an active Internet connection to install the Garage-Pi software, Python,
+and Python libraries.
+
+To connect Raspberry Pi Zero W to WiFi, you can:
+1. Use the WiFi icon on the Desktop to select and join a network ([link](https://www.bing.com/ck/a?!&&p=5fb4edd1cdb59150JmltdHM9MTY5ODk2OTYwMCZpZ3VpZD0wMzYwZDgzMi1jODMwLTZlODYtMDllZC1jOTVkYzk5ODZmOWMmaW5zaWQ9NTUyOA&ptn=3&hsh=3&fclid=0360d832-c830-6e86-09ed-c95dc9986f9c&psq=setup+wifi+on+raspberry+pi+zero+&u=a1aHR0cHM6Ly9sZWFybi5zcGFya2Z1bi5jb20vdHV0b3JpYWxzL2dldHRpbmctc3RhcnRlZC13aXRoLXRoZS1yYXNwYmVycnktcGktemVyby13aXJlbGVzcy9hbGwjOn46dGV4dD1UaGUlMjBQaSUyMFplcm8lMjBXJTIwaGFzJTIwYnVpbHQlMjBpbiUyMFdpRmklMkMsb2YlMjBhdmFpbGFibGUlMjBuZXR3b3Jrcy4lMjBTZWxlY3QlMjB0aGUlMjBvbmUlMjB5b3UlMjB3YW50Lg&ntb=1)).
+2. Edit the /etc/wpa_supplicant/wpa_supplicant.conf file and add your network name and password, then reboot your Pi ([link](https://raspberrypi.stackexchange.com/questions/68442/how-to-connect-pi-zero-w-to-the-internet#:~:text=All%20you%20have%20to%20do%20is%20go%20into,will%20have%20to%20use%20sudo%20to%20edit%20wpa_supplicant.conf)).
+3. Use the sudo iwlist wlan0 scan command to see the available networks, then edit the /etc/wpa_supplicant/wpa_supplicant.conf file and add your network name and password, then reboot your Pi ([link](https://www.bing.com/ck/a?!&&p=d03aa546f0d887b5JmltdHM9MTY5ODk2OTYwMCZpZ3VpZD0wMzYwZDgzMi1jODMwLTZlODYtMDllZC1jOTVkYzk5ODZmOWMmaW5zaWQ9NTUzMA&ptn=3&hsh=3&fclid=0360d832-c830-6e86-09ed-c95dc9986f9c&psq=setup+wifi+on+raspberry+pi+zero+&u=a1aHR0cHM6Ly93d3cuaW5zdHJ1Y3RhYmxlcy5jb20vQ29ubmVjdC1SUEktWmVyby1XLXRvLVdpZmkvIzp-OnRleHQ9Q29ubmVjdCUyMFJQSSUyMFplcm8lMjBXJTIwdG8lMjBXaWZpJTNBJTIwMS5zdWRvJTIwaXdsaXN0LCUyOHRoaXMlMjBpcyUyMHdoZXJlJTIweW91JTIwYWRkJTIwdGhlJTIwd2lmaSUyMG5ldHdvcmslMjk0Lg&ntb=1)).
+
 #### Python
-Python can be installed with the following commands:
+Once your Pi is connected to the network, Python can be installed with the following commands:
 ```
 sudo apt update
 sudo apt upgrade
@@ -264,6 +277,47 @@ This switches the python and pip commands to use the venv python environment.
 pip3 install -r requirements.txt
 ```
 This installs the required libraries.
+
+#### Why Sudo is Required
+If you run garage.py as a normal user, then you will see the following error:
+```
+$ python3 garage.py
+Can't open /dev/mem: Permission denied
+RuntimeError: NeoPixel support requires running with sudo, please try again!
+```
+This is normal and is caused by the [adafruit-circuitpython-neopixel](https://github.com/adafruit/Adafruit_CircuitPython_NeoPixel) library.  You can run 
+garage.py as root to avoid the error:
+```
+$ sudo python3 garage.py
+```
+This is a large security flaw, however, since we are providing an externally accessible website.
+There is an explanation on the Adafruit NeoPixel page on how to use GPIO10 and raspi-config to avoid
+the use of sudo.  I haven't tried this.
+
+#### Edit passwords.json
+
+You will need to edit the passwords.json file that comes with this code and place a username and password into it. This username and password will be needed to access the NiceGUI website on port 8080.
+```
+$ cat passwords.json
+{"default": "changethis"}
+```
+You can place as many username and password pairs in the file as you like.
+
+#### Run Garage-Pi
+
+To start up Garage-Pi from the command line in the garage-pi directory you checked out from GitHub, simply pass
+the garage.py script to python.  Don't forget to activate your Python virtual environment first:
+```
+source venv/bin/activate
+sudo venv/bin/python3 garage.py
+```
+If all goes well, you should something like the following:
+```
+NiceGUI ready to go on http://localhost:8080, and http://127.0.1.1:8080 (install netifaces to show all IPs and speedup this message)
+```
+If you point a web browser at the address of your garage-pi at port 8080, you should see the login screen:
+
+![Login Screen](readme_assets/LoginScreen.png)
 
 # Acknowledgements
 This system was inspired by [ResinChem Tech's](https://www.youtube.com/@ResinChemTech) "[A New Parking Assistant using ESP8266 and WS2812b LEDs](https://www.youtube.com/watch?v=HqqlY4_3kQ8)" video on YouTube.  It is an excellent system and video so I encourage you to go watch it.  His system displays the LEDs the same
