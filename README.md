@@ -42,6 +42,94 @@ Here are some obligatory screenshots, so you can figure out if this is what you 
 ## Demo
 Screenshots not enough? This video shows how Garage-Pi displays the Neopixel strip of lights as a car approaches its parking distance from the front of the garage.
 [![Garage-Pi Demo](readme_assets/demo.png)](readme_assets/demo.mp4 "Video")
+## Command Line
+If you run garage-pi with --help, the command line will be explained:
+```
+garage.py --help
+usage: garage.py [-h] [-c CONFIG] [--ssid SSID] [--tfmini_port TFMINI_PORT] [--park_distance PARK_DISTANCE] [--max_distance MAX_DISTANCE]
+                 [--neopixel_pin NEOPIXEL_PIN] [--num_pixels NUM_PIXELS] [--wlan WLAN] [--web_host WEB_HOST] [--storage_secret STORAGE_SECRET]
+                 [--door_status_pin DOOR_STATUS_PIN] [--door_control_pin DOOR_CONTROL_PIN] [--mqtt_server MQTT_SERVER]
+                 [--mqtt_discovery_prefix MQTT_DISCOVERY_PREFIX] [--mqtt_device_id MQTT_DEVICE_ID] [--mqtt_device_name MQTT_DEVICE_NAME]
+                 [--mqtt_username MQTT_USERNAME] [--mqtt_password MQTT_PASSWORD] [--passwords PASSWORDS] [--db_file DB_FILE]
+                 [--auto_open_cool_down AUTO_OPEN_COOL_DOWN] [--door_movement_delay DOOR_MOVEMENT_DELAY] [--disable_tfmini] [--disable_wifi] [--disable_web]
+                 [--disable_auto_open_via_wifi] [--disable_auto_close_via_wifi] [--disable_mqtt] [--autoremote_key AUTOREMOTE_KEY]
+
+Args that start with '--' (eg. --ssid) can also be set in a config file (/etc/garage.conf or /root/garage.conf or specified via -c). Config file syntax allows:
+key=value, flag=true, stuff=[a,b,c] (for details, see syntax at https://goo.gl/R74nmi). If an arg is specified in more than one place, then commandline values
+override config file values which override defaults.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -c CONFIG, --config CONFIG
+                        config file to load
+  --ssid SSID           enable Wifi and scan for given ssid
+  --tfmini_port TFMINI_PORT
+                        TFmini-S port to use, defaults to /dev/ttyS0
+  --park_distance PARK_DISTANCE
+                        set TFmini-S park_distance to given value in centimeters, defaults to 94 cm
+  --max_distance MAX_DISTANCE
+                        set TFmini-S max_distance to given value in centimeters, defaults to 390 cm
+  --neopixel_pin NEOPIXEL_PIN
+                        Neopixel data line is connected to this pin, see Adafruit blinka library Board class
+  --num_pixels NUM_PIXELS
+                        number of NeoPixels, defaults to 60
+  --wlan WLAN           wireless interface to use for ssid scanning, defaults to wlan0
+  --web_host WEB_HOST   start web server and bind to given host
+  --storage_secret STORAGE_SECRET
+                        secret key for browser based storage, default is `garage-pi-4-ever`, a value is required to encrypt login)
+  --door_status_pin DOOR_STATUS_PIN
+                        Door status pin, passed to gpiozero Button to monitor garage door open/close status, defaults to 2
+  --door_control_pin DOOR_CONTROL_PIN
+                        Door control pin, passed to gpiozero OutputDevice to trigger garage door open/close relay, defaults to 17
+  --mqtt_server MQTT_SERVER
+                        FQDN of MQTT server to send status updates to
+  --mqtt_discovery_prefix MQTT_DISCOVERY_PREFIX
+                        MQTT discovery_prefix portion of topic to publish configuration and status to, defaults to homeassistant
+  --mqtt_device_id MQTT_DEVICE_ID
+                        MQTT device identifier to use in publications, defaults to 01ad
+  --mqtt_device_name MQTT_DEVICE_NAME
+                        MQTT device name to use in publications, defaults to "Garage Door"
+  --mqtt_username MQTT_USERNAME
+                        MQTT server username to login
+  --mqtt_password MQTT_PASSWORD
+                        MQTT server password to login
+  --passwords PASSWORDS
+                        passwords are loaded from this json file
+  --db_file DB_FILE     store persistent variables in this file, defaults to garage_vars
+  --auto_open_cool_down AUTO_OPEN_COOL_DOWN
+                        amount of time in seconds to wait after car exits before considering opening the door, defaults to 300 seconds
+  --door_movement_delay DOOR_MOVEMENT_DELAY
+                        how long to wait for door to open or close before considering it a failure when door_status_pindoes not change its reading, defaults to 10
+                        seconds
+  --disable_tfmini      disables TFmini-S usage
+  --disable_wifi        disables Wifi usage
+  --disable_web         disables web interface
+  --disable_auto_open_via_wifi
+                        disable auto open via Wifi
+  --disable_auto_close_via_wifi
+                        disable auto close via Wifi
+  --disable_mqtt        disables MQTT integration
+  --autoremote_key AUTOREMOTE_KEY
+                        Tasker auto-remote key to send garage-opened and garage-closed messages to
+
+```
+Command line options can also be saved to a file that is loaded via the --config=FILE command line option. 
+```
+$ cat garage.conf
+ssid=My Wifi
+tfmini_port=/dev/ttyS0
+park_distance=104
+max_distance=390
+mqtt_server=homeassistant.local
+mqtt_username=homeassistant
+mqtt_password=password-to-your-mqtt-server
+autoremote_key=Tasker-autoremote-key
+$ python3 --config=garage.conf
+```
+By default, ~/garage.conf is loaded so if you pace garage.conf in your $HOME directory, it will be loaded by simply running garage.py:
+```
+$ python3 garage.py
+```
 ## Installation
 Garage-Pi requires some assembly and soldering skills in addition to software installation.  Here is a list of equipment that was used in my installation.
 ### Hardware Assembly
