@@ -9,3 +9,4 @@ wifi~=0.3.8
 fastapi~=0.100.0
 requests~=2.25.1
 board~=1.0
+adafruit-circuitpython-neopixel~=6.3.10
