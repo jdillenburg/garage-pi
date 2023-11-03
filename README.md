@@ -5,13 +5,13 @@ This project turns a Raspberry-Pi (3, 4, 5, or Zero-2W) into a Garage helper wit
 * Open/Close garage door using 5V relay
 * Determine Open/Close status via contact switch
 * TFmini-S and Neopixel integration to display distance from car to front of garage
-* Home Assistant integration via MQTT 
+* [Home Assistant](https://www.home-assistant.io/) integration via MQTT 
   * Garage door device is auto-configured
   * Status of door (open/closed) and car (parked/not parked)
   * Open/close the garage door
   * Configure park distance
   * Tasker/AutoRemote integration (garage-pi pushes open/close status to AutoRemote)
-* NiceGUI website
+* [NiceGUI](https://nicegui.io/) website
   * HTTPS and password protected
   * Open/close garage door
   * Graphs of car distance and CPU temperature
@@ -19,6 +19,8 @@ This project turns a Raspberry-Pi (3, 4, 5, or Zero-2W) into a Garage helper wit
   * Status of sensors
   * API end points for open/close status and control
 * Option to auto-open and close based on detecting car's WiFi signal
+* [Tasker](https://play.google.com/store/apps/details?id=net.dinglisch.android.taskerm) integration via [AutoRemote](https://play.google.com/store/search?q=autoremote&c=apps)
+to receive open/close status and to send open/close commands
 
 # Disclaimer
 This project will be connected to your garage door opener and will be able to remotely open and close your
@@ -127,8 +129,9 @@ pulls into the garage.  THe TFmini-S is mounted at about the height of my car's 
 The software consists of the Raspbian operating system, some shell scripts, python code, and python libraries.
 1. Write Raspbian OS to 32GB SD Card
 2. Install Python
-3. Configure HTTPS
-4. Configure Garage-Pi 
+3. Install Garage-Pi
+4. Configure HTTPS
+5. Configure Garage-Pi 
 
 Each of these steps will be discussed below.
 

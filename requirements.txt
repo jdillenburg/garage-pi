@@ -8,3 +8,4 @@ pyserial~=3.5
 wifi~=0.3.8
 fastapi~=0.100.0
 requests~=2.25.1
+board~=1.0
