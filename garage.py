@@ -95,6 +95,19 @@ syslog_handler = logging.handlers.SysLogHandler(address='/dev/log')
 stdout_handler = logging.StreamHandler(sys.stdout)
 logging.basicConfig(format='[%(asctime)s %(filename)22s:%(lineno)3s - %(funcName)20s() ] %(message)s',
                     level=logging.INFO, handlers=[ syslog_handler, stdout_handler ], force=True)
+logging.info('''
+   _____                                   _____ _ 
+  / ____|                                 |  __ (_)
+ | |  __  __ _ _ __ __ _  __ _  ___ ______| |__) | 
+ | | |_ |/ _` | '__/ _` |/ _` |/ _ \______|  ___/ |
+ | |__| | (_| | | | (_| | (_| |  __/      | |   | |
+  \_____|\__,_|_|  \__,_|\__, |\___|      |_|   |_|
+                          __/ |                    
+                         |___/                     
+    Copyright (C) 2023  John Dillenburg (john@dillenburg.org)
+    This program comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+    This is free software, and you are welcome to redistribute it
+    under certain conditions.''')
 
 if auto_open_via_wifi:
     logging.info(f'*** Door will be opened based on seeing Wifi signal from {options.ssid}')
