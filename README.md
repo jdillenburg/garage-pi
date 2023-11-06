@@ -1,4 +1,5 @@
 # Garage-Pi
+![Logo](readme_assets/Garage-Pi%20Logo%202.jpg)
 **by John Dillenburg (john@dillenburg.org)**
 
 This project turns a Raspberry-Pi (3, 4, 5, or Zero-2W) into a Garage helper with features including:
