@@ -131,10 +131,11 @@ class ControlThread(BaseThread, HomeAssistantControllable):
             new_readings = np.append(self.readings,
                                      np.array([[time.time(), self.current_distance]]),
                                      axis=0)
-            self.readings = truncate_time_series(
+            # We use copy=True to make sure original readings can be garbage collected
+            self.readings = np.array(truncate_time_series(
                 new_readings,
                 self.readings_size_in_seconds
-            )
+            ), copy=True)
             self.speed = speed(self.readings)
             #self.publish('car_speed', f'{self.speed}')
             #logging.info(f"distance={reading['distance']} cm, speed={self.speed}")

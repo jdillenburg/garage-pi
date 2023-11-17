@@ -331,6 +331,29 @@ If you point a web browser at the address of your garage-pi at port 8080, you sh
 
 ![Login Screen](readme_assets/LoginScreen.png)
 
+#### Enable Remote SSH Login
+
+I'm assuming you have another computer that you can use to remotely access your garage-pi after you install
+it in your garage.  You are probably will not want to keep a keyboard and monitor in your garage along with the 
+Raspberry Pi.  Use the raspi-config command to enable SSH.
+
+```
+sudo raspi-config
+```
+
+Go to Interface options, SSH, then select Yes.  Make sure you can remote login before moving your 
+Pi to your garage and wiring it to your door and opener.
+
+#### Disable the Desktop Graphical User Interface
+
+Note that the graphical desktop interface will not be needed and should be disabled using raspi-config.  I found in my testing
+that the lxpanel process of the desktop GUI uses up a lot of CPU cycles.  Navigate to System Options, Boot, and select 
+Console without login.
+
+```
+sudo raspi-config
+```
+
 # Acknowledgements
 This system was inspired by [ResinChem Tech's](https://www.youtube.com/@ResinChemTech) "[A New Parking Assistant using ESP8266 and WS2812b LEDs](https://www.youtube.com/watch?v=HqqlY4_3kQ8)" video on YouTube.  It is an excellent system and video so I encourage you to go watch it.  His system displays the LEDs the same
 way as Garage-Pi and has Home Assistant integration as well.  There is no Door or WiFi Sensors and no Door Open/Close Control, however.
