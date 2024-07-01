@@ -11,6 +11,21 @@ class DoorStatus(Enum):
     OPEN = 2
     CLOSING = 3
     CLOSED = 4
+
+    def ha_status(self):
+        """Returns state the way Home Assistant wants to see it."""
+        if self == DoorStatus.UNKNOWN:
+            raise ValueError("Unknown door status is not allowed.")
+        elif self == DoorStatus.OPENING:
+            return "opening"
+        elif self == DoorStatus.OPEN:
+            return "open"
+        elif self == DoorStatus.CLOSING:
+            return "closing"
+        elif self == DoorStatus.CLOSED:
+            return "closed"
+        else:
+            return "unavailable"
     
 
 class DoorStatusThread(BaseThread):

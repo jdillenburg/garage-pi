@@ -5,12 +5,15 @@ from contextlib import contextmanager
 
 from fastapi.security import HTTPAuthorizationCredentials, HTTPDigest
 from fastapi.security.utils import get_authorization_scheme_param
-from nicegui import ui, app, nicegui
+from nicegui import ui, app, nicegui, Client
 from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.responses import RedirectResponse, PlainTextResponse
 from door_status_thread import DoorStatus
 from utils import last_boot
 from fastapi import Request, Security
+
+
+unrestricted_page_routes = {'/login'}
 
 
 def create_door_image(garage):
@@ -269,8 +272,7 @@ def create_pages(garage, passwords, shutdown, restart) -> None:
         async def dispatch(self, request: Request, call_next):
             self.authorize_digest(request)
             if not app.storage.user.get('authenticated', False):
-                if (request.url.path in nicegui.globals.page_routes.values() and
-                        request.url.path not in { '/login' }):
+                if request.url.path in Client.page_routes.values() and request.url.path not in unrestricted_page_routes:
                     app.storage.user['referrer_path'] = request.url.path  # remember where the user wanted to go
                     return RedirectResponse('/login')
             return await call_next(request)

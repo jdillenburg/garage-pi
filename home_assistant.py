@@ -63,8 +63,8 @@ class HomeAssistant:
     def publish(self, door_status: DoorStatus, car_status: CarStatus, park_distance: float):
         """Sends the current status of this garage device to home assistant."""
         if self.mqtt_client is not None:
-            self.mqtt_client.publish(f'{self.mqtt_discovery_prefix}/binary_sensor/garage_door/state',
-                                     'ON' if door_status == DoorStatus.OPEN else 'OFF', retain=True)
+            self.mqtt_client.publish(f'{self.mqtt_discovery_prefix}/cover/garage_door/state',
+                                     door_status.ha_status(), retain=True)
             self.mqtt_client.publish(f'{self.mqtt_discovery_prefix}/binary_sensor/car_presence/state',
                                      'ON' if car_status == CarStatus.PARKED else 'OFF', retain=True)
             if park_distance is not None:
@@ -77,12 +77,12 @@ class HomeAssistant:
         #         mqtt_discovery_prefix - str - prefix for mqtt topic so that homeassistant can see it, defaults to 'homeassistant'
         #         mqtt_device_id - str - device identifier to use in publications to MQTT, defaults to '01ad'
         #         mqtt_device_name - str - device name to use in publications to MQTT, defaults to 'Garage Door'
-        client.publish(f'{self.mqtt_discovery_prefix}/binary_sensor/garage_door/config',
+        client.publish(f'{self.mqtt_discovery_prefix}/cover/garage_door/config',
                        f'{{ '
-                       f'  "uniq_id": "mqtt_binary_sensor.garage_door_status",'
+                       f'  "uniq_id": "mqtt_cover.garage_door",'
                        f'  "name": "Garage Door", '
-                       f'  "device_class": "garage_door", '
-                       f'  "state_topic": "{self.mqtt_discovery_prefix}/binary_sensor/garage_door/state",'
+                       f'  "device_class": "garage", '
+                       f'  "state_topic": "{self.mqtt_discovery_prefix}/cover/garage_door/state",'
                        f'  "unique_id": "garagedoor{self.mqtt_device_id}",'
                        f'  "device": {{ '
                        f'    "identifiers" : ["{self.mqtt_device_id}"], '
