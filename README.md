@@ -1,3 +1,7 @@
+# Deprecated
+The PiZero 2W was too unreliable.  It needed to be rebooted every week and it wasn't very responsive.  For
+a better version of this, see my [EspHome version](https://github.com/jdillenburg/esphome).
+
 # Garage-Pi
 ![Logo](readme_assets/Garage-Pi%20Logo%202.jpg)
 **by John Dillenburg (john@dillenburg.org)**
